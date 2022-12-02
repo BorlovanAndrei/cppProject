@@ -55,7 +55,7 @@ public:
 		this->setDate("Unknown");
 		this->setTime("Unknown");
 		this->setName("No name");
-		cout << endl << "This are values called by the default constructor ";
+		cout << endl << "These are values called by the default constructor ";
 	}
 
 	Event(string date, string time, const char* name) {
@@ -128,16 +128,16 @@ private:
 		return copy;
 	}
 
-	public:
-		friend void operator<<(ostream& out, Event event);
-		friend void operator>>(istream& in, Event event);
+public:
+	friend void operator<<(ostream& out, Event event);
+	friend void operator>>(istream& in, Event event);
 
-		char& operator[](int index) {
-			if (index < 0 || index >= strlen(this->name)) {
-				throw "Wrong index";
-			}
-			return this->name[index];
+	char& operator[](int index) {
+		if (index < 0 || index >= strlen(this->name)) {
+			throw "Wrong index";
 		}
+		return this->name[index];
+	}
 };
 
 void operator<<(ostream& out, Event event) {
