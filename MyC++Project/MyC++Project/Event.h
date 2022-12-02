@@ -51,9 +51,11 @@ public:
 
 
 	Event() {
+		
 		this->setDate("Unknown");
 		this->setTime("Unknown");
 		this->setName("No name");
+		cout << endl << "This are values called by the default constructor ";
 	}
 
 	Event(string date, string time, const char* name) {

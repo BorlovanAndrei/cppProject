@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include "Event.h"
+#include "Location.h"
 
 using namespace std;
 
@@ -19,4 +20,15 @@ int main() {
 	if (event1 == event2) {
 		cout<<endl<< "The events happen at the same time in the same day!";
 	}
+	int noSeatsPerRow[] = { 10, 20, 30 };
+	Location location1(12, 2, noSeatsPerRow, 3);
+	location1.print();
+	Location location2(12, 2, noSeatsPerRow, 3);
+	location1=location1 + 2;
+	
+	cout << endl<<"Before the sum";
+	location1.print();
+	cout << endl << "Before the diff";
+	location1 = location1 - 1;
+	location1.print();
 }
