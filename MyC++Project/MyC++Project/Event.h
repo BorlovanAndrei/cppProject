@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <string>
+#include <regex>
+
 using namespace std;
 
 class Event {
@@ -147,8 +149,42 @@ void operator<<(ostream& out, Event event) {
 	out << endl << "Time: " << event.time;
 }
 
+
+bool validateTime(string time) {
+	regex pattern("([01][0-9]|2[0-3]):[0-5][0-9]$");
+	smatch variable;
+	regex_search(time, variable, pattern);
+	if (variable[0].matched == true) {
+		return true;
+	}
+	else
+		return false;
+}
+//https://www.oreilly.com/library/view/regular-expressions-cookbook/9781449327453/ch04s04.html
+//Am luat formula pentru pattern de aici
+bool validateDate(string date) {
+	regex pattern("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$");
+	smatch variable;
+	regex_search(date, variable, pattern);
+	if (variable[0].matched == true) {
+		return true;
+	}
+	else
+		return false;
+ }
+
+bool validateName(const char* name) {
+	if (strlen(name) < Event::MIN_NAME_SIZE) {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
 void operator>>(istream& in, Event event) {
-	cout << endl << "Name: ";
+	cout << endl << "Name: (More than 3 characters!)";
+	
 	char buffer[100];
 	in >> buffer;
 	if (event.name != nullptr) {
@@ -157,12 +193,37 @@ void operator>>(istream& in, Event event) {
 	}
 	event.name = new char[strlen(buffer) + 1];
 	strcpy(event.name, buffer);
+	while (validateName(event.name) == false) {
+		cout << "Invalid name! Please try again: (More than 3 characters!)";
+		in >> buffer;
+		if (event.name != nullptr) {
+			delete[] event.name;
+			event.name = nullptr;
+		}
+		event.name = new char[strlen(buffer) + 1];
+		strcpy(event.name, buffer);
+	}
 
-	cout << endl << "Time: ";
+	cout << endl << "Time (pattern: hh:mm): ";
 	in >> event.time;
-
-	cout << endl << "Date: ";
+	//if (validTime(event.time) == false) {
+		//cout<<endl<<"Invalid time! Please try again: ";
+		while(validateTime(event.time) == false) {
+			cout << endl << "Invalid time! Please try again (pattern: hh:mm): ";
+			in >> event.time;
+		}
+		
+	//}
+	cout << endl << "Date (pattern: dd/mm/yyyy): ";
 	in >> event.date;
+	//if (validDate(event.date) == false) {
+		//cout << endl << "Invalid date! Please follow the pattern";
+		while (validateDate(event.date) == false) {
+			cout<< endl << "Invalid date! Please try again (pattern: dd/mm/yyyy): ";
+			in >> event.date;
+		}
+		
+	//}
 }
 
 bool operator==(Event& event1, Event event2) {
