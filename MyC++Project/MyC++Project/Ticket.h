@@ -202,4 +202,5 @@ void operator>>(istream& in, Ticket ticket) {
 	if (type == BOXES) {
 		ticket.type = BOXES;
 	}
+	Ticket::NO_TICKETS_SOLD++;
 }

@@ -131,10 +131,11 @@ public:
 
 	int totalNumberOfSeats() {
 		int total = 0;
-		for (int i = 0; i < this->noRows; i++) {
-			total = total + this->noSeatsPerRow[i];
+		for (int j = 0; j < this->zones; j++) {
+			for (int i = 0; i < this->noRows; i++) {
+				total = total + this->noSeatsPerRow[i];
+			}
 		}
-		total = total * this->zones;
 		return total;
 	}
 
