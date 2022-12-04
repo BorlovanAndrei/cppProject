@@ -8,8 +8,8 @@ using namespace std;
 
 class Event {
 private:
-	string date= " ";
-	string time = " ";
+	string date= "01/01/2022";
+	string time = "00:00";
 	char* name = nullptr;
 
 public:
@@ -21,13 +21,24 @@ public:
 	}
 
 	void setDate(string date) {
-		
+		regex pattern("^(3[01]|[12][0-9]|0[1-9])/(1[0-2]|0[1-9])/[0-9]{4}$");
+		smatch variable;
+		regex_search(date, variable, pattern);
+		if (variable[0].matched == false) {
+			throw "Invalid date!";
+		}
 		this->date = date;
 		
 	}
 
 	//setter and getter for hour
 	void setTime(string time) {
+		regex pattern("([01][0-9]|2[0-3]):[0-5][0-9]$");
+		smatch variable;
+		regex_search(time, variable, pattern);
+		if (variable[0].matched == false) {
+			throw "Invalid time!";
+		}
 		this->time = time;
 	}
 
@@ -55,10 +66,10 @@ public:
 
 
 	Event() {
-		
-		this->setDate("Unknown");
+		this->setName("Unknown");
+		/*this->setDate("Unknown");
 		this->setTime("Unknown");
-		this->setName("No name");
+		this->setName("No name");*/
 		//cout << endl << "These are values called by the default constructor ";
 	}
 
@@ -185,7 +196,7 @@ bool validateName(const char* name) {
 }
 
 void operator>>(istream& in, Event event) {
-	cout << endl << "Name: (More than 3 characters!)";
+	cout << endl << "Event name: (More than 3 characters!)" << endl;
 	
 	char buffer[100];
 	in >> buffer;

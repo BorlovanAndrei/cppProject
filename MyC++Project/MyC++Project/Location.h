@@ -42,6 +42,9 @@ public:
 	}
 	//setter for zones
 	void setZones(int zones) {
+		if (zones < 1) {
+			throw "Invalid zone! ";
+		}
 		this->zones = zones;
 	}
 	//getter for noSeatsPerRow
@@ -198,8 +201,16 @@ bool validateNoRows(int noRows) {
 		return true;
 }
 
+bool validateZone(int zone) {
+	if (zone < 1) {
+		return false;
+	}
+	else
+		return true;
+}
+
 void operator>>(istream& in, Location& location) {
-	cout << endl << "Number of rows: (more than 0)" ;
+	cout << endl << "Number of rows: (more than 0)" << endl ;
 	in >> location.noRows;
 	while (validateNoRows(location.noRows) == false) {
 		cout << endl << "Invalid number of seats! Please try again: (more than 1)";
@@ -228,12 +239,17 @@ void operator>>(istream& in, Location& location) {
 			in >> location.noSeatsPerRow[i];
 		}
 	}
-	cout << endl << "Number of zones: ";
+	cout << endl << "Number of zones: (more than 0) " << endl;
 	in >> location.zones;
-	cout << endl << "Number of seats: (more than 0 and less than the total number of available seats)";
+	while (validateZone(location.zones)==false)
+	{
+		cout << endl << "Invalid number of zones! Please try again: (more than 0) "<<endl;
+		in >> location.zones;
+	}
+	cout << endl << "Seat number: (more than 0 and less than the total number of available seats) "<<endl;
 	in >> location.noSeats;
 	while (validateNoSeats(location.noSeats) == false || location.noSeats>location.totalNumberOfSeats()) {
-		cout << endl <<"Invalid number of seats! Please try again: (more than 0 and less than the total number of available seats) ";
+		cout << endl <<"Invalid seat number! Please try again: (more than 0 and less than the total number of available seats) "<<endl;
 		in >> location.noSeats;
 	}
 }

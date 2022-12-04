@@ -3,6 +3,8 @@
 #include <iostream>
 #include <string>
 #include "Location.h"
+#include<stdlib.h>
+#include<time.h>
 using namespace std;
 
 enum TicketType { VIP, LAWN, TRIBUNE, BOXES };
@@ -37,6 +39,22 @@ public:
 
 	//getter and setter for TicketType
 	void setType(TicketType type) {
+		//if (type != VIP|| type != LAWN || type != TRIBUNE || type != BOXES) {
+		//	throw "Invalid ticket type! ";
+		//}
+		///*if (type != VIP)
+		//	throw "Invalid ticket type! ";
+		//if (type != LAWN)
+		//	throw "Invalid ticket type! ";
+		//if (type != TRIBUNE)
+		//	throw "Invalid ticket type! ";
+		//if (type != BOXES)
+		//	throw "Invalid ticket type! ";*/
+		//this->type = (TicketType)type;
+
+		/*if ((TicketType)type != VIP && (TicketType)type != LAWN && (TicketType)type != TRIBUNE && (TicketType)type != BOXES){
+			throw "Invalid ticket type! ";
+		}*/
 		this->type = (TicketType)type;
 	}
 
@@ -46,6 +64,9 @@ public:
 
 	//getter and setter for ticketPrice
 	void setTicketPrice(double ticketPrice) {
+		if (ticketPrice < 1) {
+			throw "Invalid price! ";
+		}
 		this->ticketPrice = ticketPrice;
 	}
 
@@ -176,8 +197,56 @@ void operator<<(ostream& out, Ticket ticket) {
 	out << endl << "Ticket's type: " << ticket.type;
 }
 
+bool validatingName(const char* guestName) {
+	if (strlen(guestName) < Ticket::MIN_NAME_SIZE) {
+		return false;
+	}
+	else
+		return true;
+}
+
+bool validatinTicketPrice(double price) {
+	if (price < 1)
+		return false;
+	else
+		return true;
+}
+
+bool validatingTicketType(TicketType type) {
+	switch (type) {
+	case TicketType::VIP:
+		return true;
+	case TicketType::LAWN:
+		return true;
+	case TicketType::TRIBUNE:
+		return true;
+	case TicketType::BOXES:
+		return true;
+		
+	}
+	return false;
+	/*if (type != VIP || type != LAWN || type != TRIBUNE || type != BOXES) {
+		return false;
+	}
+	else
+		return true;*/
+	/*if (type != VIP)
+		return false;
+	if (type != LAWN)
+		return false;
+	if (type != TRIBUNE)
+		return false;
+	if (type != BOXES)
+		return false;
+	return true;*/
+	/*if ((TicketType)type != VIP && (TicketType)type != LAWN && (TicketType)type != TRIBUNE &&  (TicketType)type != BOXES) {
+		return false;
+	}
+	return true;*/
+}
+
 void operator>>(istream& in, Ticket ticket) {
-	cout << endl << "Guest's name: ";
+	cout << endl << "Guest's name: (more than 3 characters!) " << endl;
 	char buffer[100];
 	in >> buffer;
 	if (ticket.guestName != nullptr) {
@@ -186,13 +255,31 @@ void operator>>(istream& in, Ticket ticket) {
 	}
 	ticket.guestName = new char[strlen(buffer) + 1];
 	strcpy(ticket.guestName, buffer);
+	while (validatingName(ticket.guestName) == false) {
+		cout << "Invalid guest name! Please try again: (more than 3 characters!) "<<endl;
+		in >> buffer;
+		if (ticket.guestName != nullptr) {
+			delete[] ticket.guestName;
+			ticket.guestName = nullptr;
+		}
+		ticket.guestName = new char[strlen(buffer) + 1];
+		strcpy(ticket.guestName, buffer);
+	}
 
-	cout << endl << "Ticket's price: ";
+	cout << endl << "Ticket id: " << endl;
+	int randomId = 10000000 + rand() % 100000000;
+	cout << randomId<<endl;
+
+	cout << endl << "Ticket's price: (more than 1) "<<endl;
 	in >> ticket.ticketPrice;
-	cout << endl << "Ticket's type: ";
+	while (validatinTicketPrice(ticket.ticketPrice) == false) {
+		cout << endl << "Invalid ticket price! Please try again: (more than 1) " << endl;
+		in >> ticket.ticketPrice;
+	}
+	cout << endl << "Ticket's type: (choose between: VIP, LAWN, TRIBUNE, BOXES)" << endl;
 	int type;
 	in >> type;
-	if (type == VIP) {
+	/*if (type == VIP) {
 		ticket.type = VIP;
 	}
 	if (type == TRIBUNE) {
@@ -203,6 +290,50 @@ void operator>>(istream& in, Ticket ticket) {
 	}
 	if (type == BOXES) {
 		ticket.type = BOXES;
+	}*/
+	switch (type) {
+	case TicketType::VIP:
+		ticket.type = TicketType::VIP;
+		break;
+	case TicketType::LAWN:
+		ticket.type = TicketType::LAWN;
+		break;
+	case TicketType::TRIBUNE:
+		ticket.type = TicketType::TRIBUNE;
+		break;
+	case TicketType::BOXES:
+		ticket.type = TicketType::BOXES;
+		break;
+	}
+	while (validatingTicketType(ticket.type) == false) {
+		cout << endl << "Invalid ticket type! Please try again: (choose between: VIP, LAWN, TRIBUNE, BOXES) " << endl;
+		in >> type;
+		/*if (type == VIP) {
+			ticket.type = VIP;
+		}
+		if (type == TRIBUNE) {
+			ticket.type = TRIBUNE;
+		}
+		if (type == LAWN) {
+			ticket.type = LAWN;
+		}
+		if (type == BOXES) {
+			ticket.type = BOXES;
+		}*/
+		switch (type) {
+		case TicketType::VIP:
+			ticket.type = TicketType::VIP;
+			break;
+		case TicketType::LAWN:
+			ticket.type = TicketType::LAWN;
+			break;
+		case TicketType::TRIBUNE:
+			ticket.type = TicketType::TRIBUNE;
+			break;
+		case TicketType::BOXES:
+			ticket.type = TicketType::BOXES;
+			break;
+		}
 	}
 	Ticket::NO_TICKETS_SOLD++;
 }
