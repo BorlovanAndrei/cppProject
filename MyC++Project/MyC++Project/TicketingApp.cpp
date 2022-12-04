@@ -89,12 +89,32 @@ int main() {
 	//Mare.print();*/
 
 
-	/*Event event1;
-	Location location1;
-	Ticket ticket1;
-	cin >> event1;
-	cin >> location1;
-	cin>> ticket1;*/
+	///*Event event1;
+	//Location location1;
+	//Ticket ticket1;'''''''
+	//cin >> event1;
+	//cin >> location1;
+	//cin>> ticket1;*/
+	int v[] = { 5 };
+	Location locatie1(1, 1, v, 1);
 	Ticket ticket1(2,"WHYTF",200,VIP);
-	cin >> ticket1;
+	Ticket ticket2(2, "WHYTF", 200, VIP);
+	Ticket ticket3(2, "WHYTF", 200, VIP);
+	Ticket ticket4(2, "WHYTF", 200, VIP);
+	Ticket ticket5(2, "WHYTF", 200, VIP);
+	Ticket ticket6(2, "WHYTF", 200, VIP);
+	Ticket ticket7(2, "WHYTF", 200, VIP);
+	Ticket ticket8(2, "WHYTF", 200, VIP);
+	//cin >> ticket1;
+	
+	cout << endl << locatie1.totalNumberOfSeats();
+	cout << endl << Ticket::NO_TICKETS_SOLD;
+	if (locatie1.totalNumberOfSeats() <= Ticket::NO_TICKETS_SOLD) {
+		cout << endl <<"There are no more available tickets";
+	}
+	else
+	{
+		Ticket::NO_TICKETS_SOLD++;
+	}
+	cout << endl << Ticket::NO_TICKETS_SOLD;
  }

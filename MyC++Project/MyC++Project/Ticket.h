@@ -247,21 +247,8 @@ bool validatinTicketPrice(double price) {
 }
 
 bool validatingTicketType(string type) {
-	/*switch (type) {
-	case TicketType::VIP:
-	case TicketType::LAWN:
-	case TicketType::TRIBUNE:
-	case TicketType::BOXES:
-		return true;
-	default:
-		return false;
-	}*/
-	//-----------------
-
 	if (type == "VIP") {
-		//cout << "I ajuns aici la vip";
 		return true;
-
 	}
 	if (type == "TRIBUNE") {
 		return true;
@@ -273,37 +260,6 @@ bool validatingTicketType(string type) {
 		return true;
 	}
 	return false;
-	//----------------
-	/*switch (type) {
-	case TicketType::VIP:
-		return true;
-	case TicketType::LAWN:
-		return true;
-	case TicketType::TRIBUNE:
-		return true;
-	case TicketType::BOXES:
-		return true;
-		
-	}
-	return false;*/
-	/*if (type != VIP || type != LAWN || type != TRIBUNE || type != BOXES) {
-		return false;
-	}
-	else
-		return true;*/
-	/*if (type != VIP)
-		return false;
-	if (type != LAWN)
-		return false;
-	if (type != TRIBUNE)
-		return false;
-	if (type != BOXES)
-		return false;
-	return true;*/
-	/*if ((TicketType)type != VIP && (TicketType)type != LAWN && (TicketType)type != TRIBUNE &&  (TicketType)type != BOXES) {
-		return false;
-	}
-	return true;*/
 }
 
 void operator>>(istream& in, Ticket ticket) {
@@ -357,25 +313,6 @@ void operator>>(istream& in, Ticket ticket) {
 	if (type == "BOXES") {
 		ticket.type = TicketType::BOXES;
 	}
-	/*switch (type) {
-	case TicketType::VIP:
-		ticket.type = TicketType::VIP;
-		break;
-	case TicketType::LAWN:
-		ticket.type = TicketType::LAWN;
-		break;
-	case TicketType::TRIBUNE:
-		ticket.type = TicketType::TRIBUNE;
-		break;
-	case TicketType::BOXES:
-		ticket.type = TicketType::BOXES;
-		break;
-	}*/
-
-	/*if (validatingTicketType(type) == false) {
-		cout << "ai aj aici";
-	}*/
-
 	while (validatingTicketType(type) == false) {
 		cout << endl << "Invalid ticket type! Please try again: (choose between: VIP, LAWN, TRIBUNE, BOXES) " << endl;
 		in >> type;
@@ -392,20 +329,7 @@ void operator>>(istream& in, Ticket ticket) {
 		if (type == "BOXES") {
 			ticket.type = TicketType:: BOXES;
 		}
-		/*switch (type) {
-		case TicketType::VIP:
-			ticket.type = TicketType::VIP;
-			break;
-		case TicketType::LAWN:
-			ticket.type = TicketType::LAWN;
-			break;
-		case TicketType::TRIBUNE:
-			ticket.type = TicketType::TRIBUNE;
-			break;
-		case TicketType::BOXES:
-			ticket.type = TicketType::BOXES;
-			break;
-		}*/
+		
 	}
 	Ticket::NO_TICKETS_SOLD++;
 }
