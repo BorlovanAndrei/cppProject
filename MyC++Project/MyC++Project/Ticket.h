@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include "Location.h"
 using namespace std;
 
 enum TicketType { VIP, LAWN, TRIBUNE, BOXES };
@@ -57,7 +58,7 @@ public:
 		this->setGuestName("Unknown");
 		this->setType(TRIBUNE);
 		this->setTicketPrice(0);
-		cout << endl << "These are values called by the default constructor! ";
+		//cout << endl << "These are values called by the default constructor! ";
 	}
 
 	Ticket(int ticketId,const char* guestName, double ticketPrice, TicketType type) :ticketId(ticketId) {
@@ -160,6 +161,7 @@ public:
 
 int Ticket::NO_TICKETS_SOLD = 0;
 double Ticket::SUM_OF_TICKETS_SOLD = 0;
+
 
 double AverageSales() {
 	double averageSale = 0;

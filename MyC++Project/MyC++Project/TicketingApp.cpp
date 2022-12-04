@@ -34,6 +34,7 @@ int main() {
 	location1.print();
 	cout << endl << "Before the diff";
 	location1 = location1 - 1;
+	cout << endl << "location1 values!!!!!!!!!!!!!!!!!!!!";
 	location1.print();
 	srand(time(0));
 	cout << endl;
@@ -63,5 +64,25 @@ int main() {
 	cout << endl << AverageSales();
 
 
-	cin >> event1;
+	//cin >> event1;
+	cout << endl << "------------------------------------";
+	cout << endl << location1.totalNumberOfSeats();
+	cout << endl << Ticket::NO_TICKETS_SOLD;
+	if (location1.totalNumberOfSeats() <= Ticket::NO_TICKETS_SOLD) {
+		cout << endl <<"There are no more available tickets";
+	}
+	else
+	{
+		Ticket::NO_TICKETS_SOLD++;
+	}
+	cout << endl << Ticket::NO_TICKETS_SOLD;
+
+	//cin >> location1;
+	/*int v[] = {30,20,10,30};
+	Location Neversea(2, 4, v, 4);
+	cin >> Neversea;
+	Location Untold;
+	cin >> Untold;*/
+	Event Mare("05/11/2021", "12:22", "Mamaia2022");
+	Mare.print();
 }

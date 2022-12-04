@@ -20,6 +20,9 @@ public:
 	}
 	//setter for noRows
 	void setNoRows(int noRows) {
+		if (noRows < 1) {
+			throw "Invalid number of rows!";
+		}
 		this->noRows = noRows;
 	}
 	// getter for noSeats
@@ -28,6 +31,9 @@ public:
 	}
 	//setter for noSeats
 	void setNoSeats(int noSeats) {
+		if (noSeats <= 0) {
+			throw "Invalid seats number!";
+		}
 		this->noSeats = noSeats;
 	}
 	//getter for zones
@@ -68,7 +74,7 @@ public:
 
 	//default constructor
 	Location() {
-		cout << endl << "This is the default constructor ";
+		//cout << endl << "This is the default constructor ";
 	}
 
 	//constructor
@@ -98,7 +104,7 @@ public:
 	//prints
 	void print() {
 		for (int i = 0; i < noRows; i++) {
-			cout << endl << "Number of seats on row number " << i << ": " << this->noSeatsPerRow[i];
+			cout << endl << "Number of seats on row number " << i+1 << ": " << this->noSeatsPerRow[i];
 		}
 		cout << endl << "The number of zones " << this->zones;
 		cout << endl << "The number of rows " << this->noRows;
@@ -168,23 +174,68 @@ Location operator+(Location location, int value) {
 	return result;
 }
 
+bool validateNoSeatsPerRow(int* noSeatsPerRow, int noRows) {
+	for (int i = 0; i < noRows; i++) {
+		if (noSeatsPerRow[i] < Location::MIN_NO_SEATS_PER_ROW || noSeatsPerRow[i] > Location::MAX_NO_SEATS_PER_ROW) {
+			return false;
+		}
+	}
+	return true;
+}
+
+bool validateNoSeats(int noSeats) {
+	if (noSeats <= 0)
+		return false;
+	else
+		return true;
+}
+
+bool validateNoRows(int noRows) {
+	if (noRows < 1) {
+		return false;
+	}
+	else
+		return true;
+}
 
 void operator>>(istream& in, Location& location) {
-	cout << endl << "Number of seats per row: ";
+	cout << endl << "Number of rows: (more than 0)" ;
+	in >> location.noRows;
+	while (validateNoRows(location.noRows) == false) {
+		cout << endl << "Invalid number of seats! Please try again: (more than 1)";
+		in >> location.noRows;
+	}
+
+	cout << endl << "Number of seats per row: (bigger than 5 smaller than 30)"<<endl;
 	if (location.noSeatsPerRow != nullptr) {
 		delete[] location.noSeatsPerRow;
 		location.noSeatsPerRow = nullptr;
 	}
 	location.noSeatsPerRow = new int[location.noRows];
 	for (int i = 0; i < location.noRows; i++) {
-		in >> location.noSeatsPerRow[i];
+		cout <<endl << "Row number " << i + 1 << ": ";
+		in >>location.noSeatsPerRow[i];
+	}
+	while (validateNoSeatsPerRow(location.noSeatsPerRow, location.noRows)==false) {
+		cout<<endl << "Invalid number of seats per row! Please try again: (bigger than 5 smaller than 30)"<<endl;
+		if (location.noSeatsPerRow != nullptr) {
+			delete[] location.noSeatsPerRow;
+			location.noSeatsPerRow = nullptr;
+		}
+		location.noSeatsPerRow = new int[location.noRows];
+		for (int i = 0; i < location.noRows; i++) {
+			cout << endl << "Row number " << i + 1 << ": ";
+			in >> location.noSeatsPerRow[i];
+		}
 	}
 	cout << endl << "Number of zones: ";
 	in >> location.zones;
-	cout << endl << "Number of rows: ";
-	in >> location.noRows;
-	cout << endl << "Number of seats: ";
+	cout << endl << "Number of seats: (more than 0 and less than the total number of available seats)";
 	in >> location.noSeats;
+	while (validateNoSeats(location.noSeats) == false || location.noSeats>location.totalNumberOfSeats()) {
+		cout << endl <<"Invalid number of seats! Please try again: (more than 0 and less than the total number of available seats) ";
+		in >> location.noSeats;
+	}
 }
 
 void operator<<(ostream& out, Location& location) {

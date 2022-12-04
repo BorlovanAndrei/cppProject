@@ -21,7 +21,9 @@ public:
 	}
 
 	void setDate(string date) {
+		
 		this->date = date;
+		
 	}
 
 	//setter and getter for hour
@@ -57,7 +59,7 @@ public:
 		this->setDate("Unknown");
 		this->setTime("Unknown");
 		this->setName("No name");
-		cout << endl << "These are values called by the default constructor ";
+		//cout << endl << "These are values called by the default constructor ";
 	}
 
 	Event(string date, string time, const char* name) {
