@@ -95,6 +95,6 @@ int main() {
 	cin >> event1;
 	cin >> location1;
 	cin>> ticket1;*/
-	Ticket ticket1(2,"nume",200,VIP);
+	Ticket ticket1(2,"WHYTF",200,VIP);
 	cin >> ticket1;
  }

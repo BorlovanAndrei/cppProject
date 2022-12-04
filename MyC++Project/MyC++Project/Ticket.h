@@ -52,9 +52,43 @@ public:
 		//	throw "Invalid ticket type! ";*/
 		//this->type = (TicketType)type;
 
+
+
 		/*if ((TicketType)type != VIP && (TicketType)type != LAWN && (TicketType)type != TRIBUNE && (TicketType)type != BOXES){
 			throw "Invalid ticket type! ";
 		}*/
+
+
+		/*switch (type) {
+		case TicketType::VIP:
+			this->type = (TicketType)type;
+		case TicketType::LAWN:
+			this->type = (TicketType)type;
+		case TicketType::TRIBUNE:
+			this->type = (TicketType)type;
+		case TicketType::BOXES:
+			this->type = (TicketType)type;
+		default:
+			throw "Invalid type! ";
+		}*/
+
+
+		/*string type1;
+		if (type1 == "VIP") {
+			this->type = TicketType::VIP;
+		}
+		else
+			if (type1 == "TRIBUNE") {
+			this->type = TicketType::TRIBUNE;
+			}else
+				if (type1 == "LAWN") {
+					this->type = TicketType::LAWN;
+					}else
+						if (type1 == "BOXES") {
+							this->type = TicketType::BOXES;
+						}
+						else
+							throw "Invalid type: ";*/
 		this->type = (TicketType)type;
 	}
 
@@ -212,8 +246,35 @@ bool validatinTicketPrice(double price) {
 		return true;
 }
 
-bool validatingTicketType(TicketType type) {
-	switch (type) {
+bool validatingTicketType(string type) {
+	/*switch (type) {
+	case TicketType::VIP:
+	case TicketType::LAWN:
+	case TicketType::TRIBUNE:
+	case TicketType::BOXES:
+		return true;
+	default:
+		return false;
+	}*/
+	//-----------------
+
+	if (type == "VIP") {
+		//cout << "I ajuns aici la vip";
+		return true;
+
+	}
+	if (type == "TRIBUNE") {
+		return true;
+	}
+	if (type == "LAWN") {
+		return true;
+	}
+	if (type == "BOXES") {
+		return true;
+	}
+	return false;
+	//----------------
+	/*switch (type) {
 	case TicketType::VIP:
 		return true;
 	case TicketType::LAWN:
@@ -224,7 +285,7 @@ bool validatingTicketType(TicketType type) {
 		return true;
 		
 	}
-	return false;
+	return false;*/
 	/*if (type != VIP || type != LAWN || type != TRIBUNE || type != BOXES) {
 		return false;
 	}
@@ -276,22 +337,27 @@ void operator>>(istream& in, Ticket ticket) {
 		cout << endl << "Invalid ticket price! Please try again: (more than 1) " << endl;
 		in >> ticket.ticketPrice;
 	}
+
+
+
 	cout << endl << "Ticket's type: (choose between: VIP, LAWN, TRIBUNE, BOXES)" << endl;
-	int type;
+	string type;
 	in >> type;
-	/*if (type == VIP) {
-		ticket.type = VIP;
+	transform(type.begin(), type.end(), type.begin(), ::toupper);
+	if (type == "VIP") {
+		ticket.type = TicketType::VIP;
+
 	}
-	if (type == TRIBUNE) {
-		ticket.type = TRIBUNE;
+	if (type == "TRIBUNE") {
+		ticket.type = TicketType::TRIBUNE;
 	}
-	if (type == LAWN) {
-		ticket.type = LAWN;
+	if (type == "LAWN") {
+		ticket.type = TicketType::LAWN;
 	}
-	if (type == BOXES) {
-		ticket.type = BOXES;
-	}*/
-	switch (type) {
+	if (type == "BOXES") {
+		ticket.type = TicketType::BOXES;
+	}
+	/*switch (type) {
 	case TicketType::VIP:
 		ticket.type = TicketType::VIP;
 		break;
@@ -304,23 +370,29 @@ void operator>>(istream& in, Ticket ticket) {
 	case TicketType::BOXES:
 		ticket.type = TicketType::BOXES;
 		break;
-	}
-	while (validatingTicketType(ticket.type) == false) {
+	}*/
+
+	/*if (validatingTicketType(type) == false) {
+		cout << "ai aj aici";
+	}*/
+
+	while (validatingTicketType(type) == false) {
 		cout << endl << "Invalid ticket type! Please try again: (choose between: VIP, LAWN, TRIBUNE, BOXES) " << endl;
 		in >> type;
-		/*if (type == VIP) {
-			ticket.type = VIP;
+		transform(type.begin(), type.end(), type.begin(), ::toupper);
+		if (type == "VIP") {
+			ticket.type = TicketType::VIP;
 		}
-		if (type == TRIBUNE) {
-			ticket.type = TRIBUNE;
+		if (type == "TRIBUNE") {
+			ticket.type = TicketType ::TRIBUNE;
 		}
-		if (type == LAWN) {
-			ticket.type = LAWN;
+		if (type == "LAWN") {
+			ticket.type = TicketType:: LAWN;
 		}
-		if (type == BOXES) {
-			ticket.type = BOXES;
-		}*/
-		switch (type) {
+		if (type == "BOXES") {
+			ticket.type = TicketType:: BOXES;
+		}
+		/*switch (type) {
 		case TicketType::VIP:
 			ticket.type = TicketType::VIP;
 			break;
@@ -333,7 +405,7 @@ void operator>>(istream& in, Ticket ticket) {
 		case TicketType::BOXES:
 			ticket.type = TicketType::BOXES;
 			break;
-		}
+		}*/
 	}
 	Ticket::NO_TICKETS_SOLD++;
 }
