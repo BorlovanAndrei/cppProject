@@ -9,6 +9,7 @@
 using namespace std;
 
 int main() {
+	
 	//cout << endl << "Event class: " << endl;
 	////Event event1("12 decembrie 2022", "16:30", "Nostalgia");
 	////Event event2("1 decembrie 2022","16:30", "Nostalgia");
@@ -95,26 +96,49 @@ int main() {
 	//cin >> event1;
 	//cin >> location1;
 	//cin>> ticket1;*/
-	int v[] = { 5 };
-	Location locatie1(1, 1, v, 1);
-	Ticket ticket1(2,"WHYTF",200,VIP);
-	Ticket ticket2(2, "WHYTF", 200, VIP);
-	Ticket ticket3(2, "WHYTF", 200, VIP);
-	Ticket ticket4(2, "WHYTF", 200, VIP);
-	Ticket ticket5(2, "WHYTF", 200, VIP);
-	Ticket ticket6(2, "WHYTF", 200, VIP);
-	Ticket ticket7(2, "WHYTF", 200, VIP);
-	Ticket ticket8(2, "WHYTF", 200, VIP);
-	//cin >> ticket1;
-	
-	cout << endl << locatie1.totalNumberOfSeats();
-	cout << endl << Ticket::NO_TICKETS_SOLD;
-	if (locatie1.totalNumberOfSeats() <= Ticket::NO_TICKETS_SOLD) {
+	//int v[] = { 5 };
+	//Location locatie1(1, 1, v, 1);
+	//Ticket ticket1(2,"WHYTF",200,VIP);
+	//Ticket ticket2(2, "WHYTF", 200, VIP);
+	//Ticket ticket3(2, "WHYTF", 200, VIP);
+	//Ticket ticket4(2, "WHYTF", 200, VIP);
+	//Ticket ticket5(2, "WHYTF", 200, VIP);
+	//Ticket ticket6(2, "WHYTF", 200, VIP);
+	//Ticket ticket7(2, "WHYTF", 200, VIP);
+	//Ticket ticket8(2, "WHYTF", 200, VIP);
+	////cin >> ticket1;
+	//
+	//cout << endl << locatie1.totalNumberOfSeats();
+	//cout << endl << Ticket::NO_TICKETS_SOLD;
+	//if (locatie1.totalNumberOfSeats() <= Ticket::NO_TICKETS_SOLD) {
+	//	cout << endl <<"There are no more available tickets";
+	//}
+	//else
+	//{
+	//	Ticket::NO_TICKETS_SOLD++;
+	//}
+	//cout << endl << Ticket::NO_TICKETS_SOLD;
+	Event event1;
+	Location location1;
+	Ticket ticket1;
+	cin >> event1;
+	cout << "=====================";
+	cin >> location1;
+	cout << "=====================";
+	cin >> ticket1;
+	cout << "=====================";
+	Ticket ticket2;
+	cin >> ticket2;
+
+
+	cout << endl << "Total number of seats for this event:" <<endl <<location1.totalNumberOfSeats();
+	cout << endl << "Number of tickets sold so far" << endl << Ticket::NO_TICKETS_SOLD;
+	if (location1.totalNumberOfSeats() <= Ticket::NO_TICKETS_SOLD) {
 		cout << endl <<"There are no more available tickets";
 	}
 	else
 	{
 		Ticket::NO_TICKETS_SOLD++;
 	}
-	cout << endl << Ticket::NO_TICKETS_SOLD;
+	cout << endl <<"Number of tickets sold so far" << endl << Ticket::NO_TICKETS_SOLD;
  }

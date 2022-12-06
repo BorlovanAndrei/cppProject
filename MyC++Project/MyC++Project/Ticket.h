@@ -15,7 +15,7 @@ private:
 	char* guestName = nullptr;
 	const int ticketId;
 	TicketType type = TRIBUNE;
-	double ticketPrice = 0;
+	double ticketPrice = 1;
 public:
 	const static int MIN_NAME_SIZE = 3;
 	static int NO_TICKETS_SOLD;
@@ -112,7 +112,7 @@ public:
 	Ticket():ticketId(-1) {
 		this->setGuestName("Unknown");
 		this->setType(TRIBUNE);
-		this->setTicketPrice(0);
+		this->setTicketPrice(1);
 		//cout << endl << "These are values called by the default constructor! ";
 	}
 
@@ -216,6 +216,7 @@ public:
 
 int Ticket::NO_TICKETS_SOLD = 0;
 double Ticket::SUM_OF_TICKETS_SOLD = 0;
+
 
 
 double AverageSales() {

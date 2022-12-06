@@ -262,3 +262,6 @@ void operator<<(ostream& out, Location& location) {
 	out << endl << "Number of rows " << location.noRows;
 	out << endl << "Number of seats " << location.noSeats;
 }
+
+
+
