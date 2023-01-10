@@ -11,11 +11,11 @@ enum TicketType { VIP, LAWN, TRIBUNE, BOXES };
  
 class Ticket {
 private:
-
 	char* guestName = nullptr;
 	const int ticketId;
 	TicketType type = TRIBUNE;
 	double ticketPrice = 1;
+	Location location;
 public:
 	const static int MIN_NAME_SIZE = 3;
 	static int NO_TICKETS_SOLD;
@@ -124,7 +124,7 @@ public:
 		Ticket::SUM_OF_TICKETS_SOLD = Ticket::SUM_OF_TICKETS_SOLD + this->ticketPrice;
 	}
 
-	void print() {
+	virtual void print() {
 		if (this->guestName != nullptr) {
 			cout << endl << "The guest's name: " << this->guestName;
 		}
@@ -212,6 +212,23 @@ public:
 	//This function returns the money made devided by the tickets sold
 	
 
+	//---------------------
+	bool validTicket() {
+		if (Ticket::NO_TICKETS_SOLD >= location.totalNumberOfSeats())
+			return true;
+		else
+			return false;
+	}
+
+	/*virtual void availablTicketsForTheEvent() {
+		cout << endl << "Ticket's left to be sold: " << location.totalNumberOfSeats() - Ticket::NO_TICKETS_SOLD;
+	}*/
+
+	virtual void whatDiscount() {
+		int discount = 0;
+		cout << endl << "This ticket is not yet validated! Therefore, it has a discount of " << discount << "%";
+	}
+
 };
 
 int Ticket::NO_TICKETS_SOLD = 0;
@@ -263,18 +280,45 @@ bool validatingTicketType(string type) {
 	return false;
 }
 
-void operator>>(istream& in, Ticket ticket) {
-	cout << endl << "Guest's name: (more than 3 characters!) " << endl;
-	char buffer[100];
-	in >> buffer;
-	if (ticket.guestName != nullptr) {
-		delete[] ticket.guestName;
-		ticket.guestName = nullptr;
+
+//bool validTickets(Location& location) {
+//	if (Ticket::NO_TICKETS_SOLD < location.totalNumberOfSeats()) {
+//		return true;
+//	}
+//	else
+//		return false;
+//}
+
+class ValidateTicket: public Ticket {
+	bool isValid = true;
+	int discount = 10;
+public:
+	ValidateTicket(bool isValid, int ticketId, const char* guestName, double ticketPrice, TicketType type) : Ticket(ticketId, guestName, ticketPrice, type), isValid(isValid) {
+
 	}
-	ticket.guestName = new char[strlen(buffer) + 1];
-	strcpy(ticket.guestName, buffer);
-	while (validatingName(ticket.guestName) == false) {
-		cout << "Invalid guest name! Please try again: (more than 3 characters!) "<<endl;
+	void print() {
+		this->Ticket::print();
+		if (validTicket() == 0)
+			this->isValid = false;
+		if (this->isValid == 0)
+			cout << endl << "The ticket is not valid";
+		else
+			cout << endl << "The ticket is valid";
+	}
+
+	void whatDiscount() {
+		this->Ticket::whatDiscount();
+		cout << endl << "This ticket has bees successfully validated. Therefore, has a discount of: " << this->discount << "%";
+	}
+	
+};
+
+
+
+void operator>>(istream& in, Ticket ticket) {
+	if (ticket.validTicket() == 1) {
+		cout << endl << "Guest's name: (more than 3 characters!) " << endl;
+		char buffer[100];
 		in >> buffer;
 		if (ticket.guestName != nullptr) {
 			delete[] ticket.guestName;
@@ -282,55 +326,68 @@ void operator>>(istream& in, Ticket ticket) {
 		}
 		ticket.guestName = new char[strlen(buffer) + 1];
 		strcpy(ticket.guestName, buffer);
-	}
+		while (validatingName(ticket.guestName) == false) {
+			cout << "Invalid guest name! Please try again: (more than 3 characters!) " << endl;
+			in >> buffer;
+			if (ticket.guestName != nullptr) {
+				delete[] ticket.guestName;
+				ticket.guestName = nullptr;
+			}
+			ticket.guestName = new char[strlen(buffer) + 1];
+			strcpy(ticket.guestName, buffer);
+		}
 
-	cout << endl << "Ticket id: " << endl;
-	int randomId = 10000000 + rand() % 100000000;
-	cout << randomId<<endl;
+		cout << endl << "Ticket id: " << endl;
+		int randomId = 10000000 + rand() % 100000000;
+		cout << randomId << endl;
 
-	cout << endl << "Ticket's price: (more than 1) "<<endl;
-	in >> ticket.ticketPrice;
-	while (validatinTicketPrice(ticket.ticketPrice) == false) {
-		cout << endl << "Invalid ticket price! Please try again: (more than 1) " << endl;
+		cout << endl << "Ticket's price: (more than 1) " << endl;
 		in >> ticket.ticketPrice;
-	}
+		while (validatinTicketPrice(ticket.ticketPrice) == false) {
+			cout << endl << "Invalid ticket price! Please try again: (more than 1) " << endl;
+			in >> ticket.ticketPrice;
+		}
 
 
 
-	cout << endl << "Ticket's type: (choose between: VIP, LAWN, TRIBUNE, BOXES)" << endl;
-	string type;
-	in >> type;
-	transform(type.begin(), type.end(), type.begin(), ::toupper);
-	if (type == "VIP") {
-		ticket.type = TicketType::VIP;
-
-	}
-	if (type == "TRIBUNE") {
-		ticket.type = TicketType::TRIBUNE;
-	}
-	if (type == "LAWN") {
-		ticket.type = TicketType::LAWN;
-	}
-	if (type == "BOXES") {
-		ticket.type = TicketType::BOXES;
-	}
-	while (validatingTicketType(type) == false) {
-		cout << endl << "Invalid ticket type! Please try again: (choose between: VIP, LAWN, TRIBUNE, BOXES) " << endl;
+		cout << endl << "Ticket's type: (choose between: VIP, LAWN, TRIBUNE, BOXES)" << endl;
+		string type;
 		in >> type;
 		transform(type.begin(), type.end(), type.begin(), ::toupper);
 		if (type == "VIP") {
 			ticket.type = TicketType::VIP;
+
 		}
 		if (type == "TRIBUNE") {
-			ticket.type = TicketType ::TRIBUNE;
+			ticket.type = TicketType::TRIBUNE;
 		}
 		if (type == "LAWN") {
-			ticket.type = TicketType:: LAWN;
+			ticket.type = TicketType::LAWN;
 		}
 		if (type == "BOXES") {
-			ticket.type = TicketType:: BOXES;
+			ticket.type = TicketType::BOXES;
 		}
-		
+		while (validatingTicketType(type) == false) {
+			cout << endl << "Invalid ticket type! Please try again: (choose between: VIP, LAWN, TRIBUNE, BOXES) " << endl;
+			in >> type;
+			transform(type.begin(), type.end(), type.begin(), ::toupper);
+			if (type == "VIP") {
+				ticket.type = TicketType::VIP;
+			}
+			if (type == "TRIBUNE") {
+				ticket.type = TicketType::TRIBUNE;
+			}
+			if (type == "LAWN") {
+				ticket.type = TicketType::LAWN;
+			}
+			if (type == "BOXES") {
+				ticket.type = TicketType::BOXES;
+			}
+
+		}
+		Ticket::NO_TICKETS_SOLD++;
 	}
-	Ticket::NO_TICKETS_SOLD++;
+	else {
+		cout << endl << "No more available tickets";
+	}
 }

@@ -162,8 +162,8 @@ public:
 	friend void operator>>(istream& in, Location& location);
 	friend void operator<<(ostream& out, Location& location);
 
-
 };
+
 
 Location operator-(Location location, int value) {
 	Location result = location;

@@ -118,27 +118,42 @@ int main() {
 	//	Ticket::NO_TICKETS_SOLD++;
 	//}
 	//cout << endl << Ticket::NO_TICKETS_SOLD;
+
+
+
+
+	/*ValidateTicket ticket1(false,10000000 + rand() % 100000000, "Andrei Theo", 200, BOXES);
+	ticket1.whatDiscount();*/
+
+
+
+
 	Event event1;
 	Location location1;
 	Ticket ticket1;
+
 	cin >> event1;
-	cout << "=====================";
+	cout << "====================="<<endl;
 	cin >> location1;
-	cout << "=====================";
+	cout << "====================="<<endl;
 	cin >> ticket1;
-	cout << "=====================";
+	cout << "====================="<<endl;
 	Ticket ticket2;
 	cin >> ticket2;
 
 
 	cout << endl << "Total number of seats for this event:" <<endl <<location1.totalNumberOfSeats();
 	cout << endl << "Number of tickets sold so far" << endl << Ticket::NO_TICKETS_SOLD;
-	if (location1.totalNumberOfSeats() <= Ticket::NO_TICKETS_SOLD) {
+
+
+
+
+	/*if (location1.totalNumberOfSeats() > Ticket::NO_TICKETS_SOLD) {
 		cout << endl <<"There are no more available tickets";
 	}
 	else
 	{
 		Ticket::NO_TICKETS_SOLD++;
 	}
-	cout << endl <<"Number of tickets sold so far" << endl << Ticket::NO_TICKETS_SOLD;
+	cout << endl <<"Number of tickets sold so far" << endl << Ticket::NO_TICKETS_SOLD;*/
  }
