@@ -105,7 +105,7 @@ public:
 	}
 
 	//prints
-	void print() {
+	virtual void print() {
 		for (int i = 0; i < noRows; i++) {
 			cout << endl << "Number of seats on row number " << i+1 << ": " << this->noSeatsPerRow[i];
 		}
@@ -162,6 +162,15 @@ public:
 	friend void operator>>(istream& in, Location& location);
 	friend void operator<<(ostream& out, Location& location);
 
+	virtual void availableSeats() {
+		int total = 0;
+		for (int j = 0; j < this->zones; j++) {
+			for (int i = 0; i < this->noRows; i++) {
+				total = total + this->noSeatsPerRow[i];
+			}
+		}
+		cout << endl << "Available seats for this event: " << total;
+	}
 };
 
 
@@ -263,5 +272,24 @@ void operator<<(ostream& out, Location& location) {
 	out << endl << "Number of seats " << location.noSeats;
 }
 
+class expectedSales: public Location {
+	int socialMediaShares = 0;
+public:
+	expectedSales(int socialMediaShares, int noSeats, int zones, int* noSeatsPerRow, int noRows): Location(noSeats, zones, noSeatsPerRow, noRows), socialMediaShares(socialMediaShares) {
+
+	}
+
+	void print() {
+		this->Location::print();
+		cout << endl << "People shared the event on social media " << this->socialMediaShares<< " times";
+	}
+
+	void availableSeats() {
+		this->Location::availableSeats();
+		cout << endl << "Available seats if all people that shared the event on social media were to come: " << Location::totalNumberOfSeats() - this->socialMediaShares;
+	}
+
+
+};
 
 

@@ -80,7 +80,7 @@ public:
 	}
 
 	//prints
-	void print() {
+	virtual void print() {
 		if (this->name != nullptr) {
 			cout << endl << "Name: " << this->name;
 		}
@@ -153,6 +153,15 @@ public:
 		}
 		return this->name[index];
 	}
+
+	/*void nameFirstLetter() {
+		cout << endl << "Guest's name first letter: " << this->name[0];
+	}*/
+
+	virtual void timeDuration() {
+		cout << endl << "Event's time: " << this->time;
+	}
+
 };
 
 void operator<<(ostream& out, Event event) {
@@ -242,3 +251,23 @@ void operator>>(istream& in, Event event) {
 bool operator==(Event& event1, Event event2) {
 	return event1.getDate() == event2.getDate() && event1.getTime() == event2.getTime();
 }
+
+class ticketAddress : public Event {
+	string address = " ";
+	int duration = 0;
+public:
+	ticketAddress(string address, int duration, string date, string time, const char* name): Event(date, time, name), address(address), duration(duration) {
+
+	}
+	void print() {
+		this->Event::print();
+		cout << endl << "Event's address: " << this->address;
+		cout << endl << "Event's duration: " << this->duration;
+	}
+
+	void timeDuration() {
+		this->Event::timeDuration();
+		cout << endl << "Event's duration: " << this->duration << " min";
+	}
+
+};

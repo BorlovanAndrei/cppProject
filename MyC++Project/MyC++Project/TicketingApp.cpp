@@ -125,6 +125,16 @@ int main() {
 	/*ValidateTicket ticket1(false,10000000 + rand() % 100000000, "Andrei Theo", 200, BOXES);
 	ticket1.whatDiscount();*/
 
+	/*ticketAddress event1("Ion Mihalache",56 ,"12/12/2022", "16:30", "Nostalgia");
+	event1.print();
+	cout << endl << "-----------------------------";
+	event1.timeDuration();*/
+
+	/*int noSeatsPerRow[] = { 10, 20, 30 };
+	expectedSales location1(30 ,12, 2, noSeatsPerRow, 3);
+	location1.print();
+	cout << endl << "---------------------";
+	location1.availableSeats();*/
 
 
 
