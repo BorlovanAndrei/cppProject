@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 #include "Location.h"
 #include<stdlib.h>
 #include<time.h>
@@ -9,8 +10,10 @@ using namespace std;
 
 enum TicketType { VIP, LAWN, TRIBUNE, BOXES };
  
+
+
 class Ticket {
-private:
+protected:
 	char* guestName = nullptr;
 	const int ticketId;
 	TicketType type = TRIBUNE;
@@ -164,6 +167,10 @@ public:
 		Ticket::SUM_OF_TICKETS_SOLD = Ticket::SUM_OF_TICKETS_SOLD + ticket.ticketPrice;
 	}
 
+	int getId() {
+		return this->ticketId;
+	}
+
 	//operator=
 	void operator=(const Ticket& ticket) {
 		if (this == &ticket) {
@@ -227,6 +234,20 @@ public:
 	virtual void whatDiscount() {
 		int discount = 0;
 		cout << endl << "This ticket is not yet validated! Therefore, it has a discount of " << discount << "%";
+	}
+
+
+	static void binaryFileForTickets(Ticket tickets, string fileName) {
+		fstream file(fileName, ios::out | ios::app | ios::binary);
+		if (file.is_open()) {
+			file << "***Tickets***";
+			file << endl << tickets.getGuestName() << " "<< tickets.getId();
+			file.close();
+		}
+		else
+		{
+			cout << endl << "***************NO FILE****************";
+		}
 	}
 
 };

@@ -136,13 +136,19 @@ int main() {
 	cout << endl << "---------------------";
 	location1.availableSeats();*/
 
-
+	
+	/*Event event1("12:12", "12/12/2023", "Nostalgia", "event planner", 40000);
+	event1.printInformation();*/
+	
 
 	Event event1;
 	Location location1;
 	Ticket ticket1;
 
-	cin >> event1;
+	Ticket::binaryFileForTickets(ticket1, "TicketsBinaryFile.txt");
+	
+
+	/*cin >> event1;
 	cout << "====================="<<endl;
 	cin >> location1;
 	cout << "====================="<<endl;
@@ -153,7 +159,7 @@ int main() {
 
 
 	cout << endl << "Total number of seats for this event:" <<endl <<location1.totalNumberOfSeats();
-	cout << endl << "Number of tickets sold so far" << endl << Ticket::NO_TICKETS_SOLD;
+	cout << endl << "Number of tickets sold so far" << endl << Ticket::NO_TICKETS_SOLD;*/
 
 
 

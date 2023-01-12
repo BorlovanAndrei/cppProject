@@ -6,14 +6,44 @@
 
 using namespace std;
 
-class Event {
-private:
+class eventPlanner {
+protected:
+	string organization = "";
+	float price = 0;
+public:
+	eventPlanner() {
+		//cout << endl << "Default constructor!";
+	}
+	eventPlanner(string organization, float price) :organization(organization), price(price) {
+
+	}
+	string getOrganization() {
+		return this->organization;
+	}
+	void setOrganization(string organization) {
+		this->organization = organization;
+	}
+	virtual void printInformation() = 0;
+};
+
+class Event : public eventPlanner{
+protected:
 	string date= "01/01/2022";
 	string time = "00:00";
 	char* name = nullptr;
 
 public:
 	const static int MIN_NAME_SIZE = 3;
+
+	Event(string date, string time, const char* name, string organization, float price)
+		:eventPlanner(organization, price), date(date), time(time) {
+		this->setName(name);
+	}
+	void printInformation() {
+		cout << endl << "The organization that handles the envent is: " << this->organization;
+		cout << endl << "The event's name is: " << this->name;
+		cout << endl << "The organization's fee: " << this->price;
+	 }
 
 	//setter & getter for date
 	string getDate() {

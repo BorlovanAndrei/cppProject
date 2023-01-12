@@ -5,7 +5,7 @@
 using namespace std;
 
 class Location {
-private:
+protected:
 	int noRows = 0;
 	int noSeats = 0;
 	int zones = 0;
