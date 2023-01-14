@@ -1,5 +1,5 @@
 #pragma once
-
+#define CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 #include <regex>
@@ -151,7 +151,7 @@ public:
 		}
 		if (event.name != nullptr) {
 			this->name = new char[strlen(event.name) + 1];
-			strcpy(this->name, event.name);
+			strcpy  (this->name, event.name);
 		}
 		else
 		{

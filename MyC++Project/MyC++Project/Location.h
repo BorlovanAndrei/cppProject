@@ -1,5 +1,5 @@
 #pragma once
-
+#define CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <string>
 using namespace std;
@@ -13,7 +13,7 @@ protected:
 public:
 	const static int MIN_NO_SEATS_PER_ROW = 5;
 	const static int MAX_NO_SEATS_PER_ROW = 30;
-
+	//static int TOTAL_LOCATIONS;
 	//getter for noRows
 	int getNoRows() {
 		return this->noRows;
@@ -86,11 +86,13 @@ public:
 		this->setZones(zones);
 		this->setNoSeatsPerRow(noSeatsPerRow, noRows);
 		this->setNoRows(noRows);
+		/*Location::TOTAL_LOCATIONS++;*/
 	}
 
 	//destrucrtor
 	~Location() {
 		this->deleteLocation();
+		/*Location::TOTAL_LOCATIONS--;*/
 	}
 	void deleteLocation() {
 		if (this->noSeatsPerRow != nullptr) {}
@@ -102,6 +104,7 @@ public:
 		this->setNoSeats(location.noSeats);
 		this->setNoSeatsPerRow(location.noSeatsPerRow, location.noRows);
 		this->setZones(location.zones);
+		/*Location::TOTAL_LOCATIONS++;*/
 	}
 
 	//prints
@@ -113,6 +116,11 @@ public:
 		cout << endl << "The number of rows " << this->noRows;
 		cout << endl << "The numebr of seats " << this->noSeats;
 	}
+
+	static int getNumberOfTotalLocations() {
+		/*return Location::TOTAL_LOCATIONS;*/
+	}
+
 
 	void operator=(const Location& location) {
 		if (this == &location) {
@@ -171,8 +179,10 @@ public:
 		}
 		cout << endl << "Available seats for this event: " << total;
 	}
-};
 
+	
+};
+ //int TOTAL_LOCATIONS = 0;
 
 Location operator-(Location location, int value) {
 	Location result = location;
