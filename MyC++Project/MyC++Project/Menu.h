@@ -47,4 +47,13 @@ public:
 	void AddAnEvent();
 	void AddATicket();
 	void AddALocation();
+	bool ticketsForSale(int ticketsAvailable) {
+		if (ticketsAvailable > this->ticketsAvailable) {
+			return false;
+		}
+		else {
+			this->ticketsAvailable--;
+			return true;
+		}
+	};
 };

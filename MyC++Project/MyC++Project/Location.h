@@ -184,6 +184,8 @@ public:
 };
  //int TOTAL_LOCATIONS = 0;
 
+
+
 Location operator-(Location location, int value) {
 	Location result = location;
 	result.setZones(location.getZones() - value);
