@@ -12,299 +12,299 @@
 
 using namespace std;
 
-void Menu::Run() {
-	int option;
-	do {
-		DisplayMenu();
-		cout << endl << "Please select an option: ";
-		cin >> option;
-		switch (option) {
-		case 1:
-			AddAnEvent();
-			std::system("PAUSE");
-			std::system("CLS");
-			break;
-
-		case 2:
-			AddATicket();
-			std::system("PAUSE");
-			std::system("CLS");
-			break;
-
-		case 3:
-			AddALocation();
-			std::system("PAUSE");
-			std::system("CLS");
-			break;
-		case 0:
-			break;
-		default:
-			cout << endl << "Please choose a valid option:" <<endl
-				<< "-------------------" << endl;
-			cin.ignore();
-		}
-
-	} while (option != 4 && option!=0);
-}
-void Menu::AddALocation() {
-	std::system("CLS");
-	int noRows = 0;
-	cout << endl << "Number of rows: (more than 0): ";
-	cin >> noRows;
-	while (noRows <= 0) {
-		cout << endl << "Invalid number of rows! " << endl << "Please enter again (more than 0)" << endl;
-		cin >> noRows;
-	}
-
-	int noSeatsPerRow[100];
-	cout << endl << "Number of seats per row: (bigger than 5 smaller than 30)" << endl;
-	for (int i = 0; i < noRows; i++) {
-		cout << endl << "Row number: " << i + 1 << ": ";
-		cin >> noSeatsPerRow[i];
-		while (noSeatsPerRow[i] < Location::MIN_NO_SEATS_PER_ROW || noSeatsPerRow[i]> Location::MAX_NO_SEATS_PER_ROW) {
-			cout << endl << "Invalid number of seats per row! " << endl << "Please enter again: (bigger than 5 smaller than 30) " << endl;
-			cout << "Row number: " << i + 1 << ": ";
-			cin >> noSeatsPerRow[i];
-		}
-	}
-	int zones = 0;
-	cout << endl << "Number of zones: (more than 0) "<<endl;
-	cin >> zones;
-	while (zones <= 0) {
-		cout << endl << "Invalid number of zones! " << endl << "Please enter again (more than 0)"<<endl;
-		cin >> zones;
-	}
-	int total = 0;
-	for (int j = 0; j < noRows; j++) {
-		total = total + noSeatsPerRow[j];
-	}
-	total = total * zones;
-
-	int seatNo = 0;
-	cout << endl << "Seat number: (more than 0 and less than the total number of available seats) " << endl;
-	cin >> seatNo;
-	while (validateNoSeats(seatNo) == false || seatNo > total) {
-		cout << endl << "Invalid seat number" << endl << "Please enter again (more than 0 and less than the total number of available seats)" << endl;
-		cin >> seatNo;
-	}
-	cout << endl << "Location created"<<endl;
-	std::system("PAUSE");
-	//system("CLS");
-}
-void Menu::DisplayMenu() {
-	std::system("CLS");
-	cout << "----Ticketing App----" << endl;
-	cout << "_____________________" << endl;
-	cout << "1-> Add an event " << endl;
-	cout << "2-> Add a ticket " << endl;
-	cout << "3-> Add a location " << endl;
-	cout << "--------------------" << endl;
-	cout << "0-> Exit " << endl;
-
-}
-
-void Menu::AddAnEvent() {
-	/*int choice = 1;
-	int locations = Location::getNumberOfTotalLocations();
-	while (choice != 0) {
-		system("CLS");
-		cout << "----Add An Event----" << endl;
-		cout << "--------------------------" << endl;
-		cout << "Locations: " << locations << endl;
-		for (int i = 0; i < locations; i++)
-			cout << endl;
-	}*/
-	std::system("CLS");
-	string name ="";
-	int duration = 0;
-	/*int day = 0;
-	string month = "";
-	int year = 0;
-	int min = 0;
-	int hour = 0;*/
-	cout << "----Add An Event----" << endl;
-	cout << "--------------------" << endl;
-	cout << "Event name: (3 or more characters)"<<endl;
-	cin >> name;
-	while (name.length() < 3){
-		cout << endl << "Invalid event name!" << endl << "Please enter again: (3 or more characters) "<<endl;
-		cin >> name;
-	} 
-	string address = "";
-	cout << "Enter address: (3 or more characters)" << endl;
-	cin >> address;
-	while (address.length() < 3) {
-		cout << endl << "Invalid address name! " << endl << "Please enter again: (3 or more characters) " << endl;
-		cin >> address;
-	}
-	cout << "Runtime (minutes): (bigger than 0)" << endl;
-	cin >> duration;
-	while (duration <= 0) {
-		cout << "Invalid runtime!" << endl << "Please enter again: (bigger than 0) " <<  endl;
-		cin >> duration;
-	}
-	//cout << "Hour: "; cin >> hour;
-	//cout << "Minutes: "; cin >> min;
-	string date="";
-	string time = "";
-	cout << "Enter date: (dd/mm/yyyy) " << endl;
-	cin >> date;
-	while(validateDate(date) == 0) {
-		cout << endl << "Invalid date! " << endl << "Please enter again: (dd/mm/yyyy)" << endl;
-		cin >> date;
-	}
-	
-	cout << "Enter time: (hh:mm) "<<endl;
-	cin >> time;
-	while (validateTime(time) == 0) {
-		cout << endl << "Invalid time! " << endl << "Please enter again: (hh:mm)" << endl;
-		cin >> time;
-	}
-	/*cout << "Day: "; cin >> day;
-	cout << "Month: "; cin >> month;
-	cout << "Year: "; cin >> year;*/
-	cout << endl<<"Event created!"<<endl;
-	std::system("PAUSE");
-}
-
-void Menu::AddATicket() {
-	std::system("CLS");
-	//int noTickets = 1;
-	//if (ticketsForSale(noTickets) == true) {
-		string name = "";
-		//int noTickets;
-		int ticketPrice = 0;
-		cout << "Please enter your name: (more than 3 characters)" << endl;
-		cin >> name;
-		while (name.length() < 3) {
-			cout << endl << "Invalid name! " << endl << "Please enter again (more than 3 characters)" << endl;
-			cin >> name;
-		}
-
-		cout << endl << "Ticket's id: ";
-		int randomId = 10000000 + rand() % 100000000;
-		cout << randomId << endl;
-
-		cout << endl << "Ticket's price: (more than 1)" << endl;
-		cin >> ticketPrice;
-		while (ticketPrice <= 1) {
-			cout << endl << "Invalid ticket price! " << endl << "Please enter again (more than 1)" << endl;
-			cin >> ticketPrice;
-		}
-
-		cout << endl << "Ticket's type: (choose between: VIP, LAWN, TRIBUNE, BOXES)" << endl;
-		string type;
-		cin >> type;
-		transform(type.begin(), type.end(), type.begin(), ::toupper);
-	/*	if (type == "VIP") {
-			type = TicketType::VIP;
-
-		}
-		if (type == "TRIBUNE") {
-			type = TicketType::TRIBUNE;
-		}
-		if (type == "LAWN") {
-			type = TicketType::LAWN;
-		}
-		if (type == "BOXES") {
-			type = TicketType::BOXES;
-		}*/
-		while (validatingTicketType(type) == false) {
-			cout << endl << "Invalid ticket type! Please try again: (choose between: VIP, LAWN, TRIBUNE, BOXES) " << endl;
-			cin >> type;
-			transform(type.begin(), type.end(), type.begin(), ::toupper);
-			/*if (type == "VIP") {
-				type = TicketType::VIP;
-			}
-			if (type == "TRIBUNE") {
-				type = TicketType::TRIBUNE;
-			}
-			if (type == "LAWN") {
-				type = TicketType::LAWN;
-			}
-			if (type == "BOXES") {
-				type = TicketType::BOXES;
-			}*/
-
-		}
-		cout << endl << "Ticket created!"<<endl;
-	//}
-	//else
-	//{
-	//	cout << endl << "No more available tickets! "<<endl;
-	//}
-	
-	//string name = "";
-	////int noTickets;
-	//int ticketPrice = 0;
-	//cout << "Please enter your name: (more than 3 characters)"<<endl;
-	//cin >> name;
-	//while (name.length() < 3) {
-	//	cout << endl << "Invalid name! " << endl << "Please enter again (more than 3 characters)" << endl;
-	//	cin >> name;
-	//}
-
-	//cout << endl << "Ticket's id: ";
-	//int randomId = 10000000 + rand() % 100000000;
-	//cout << randomId << endl;
-
-	//cout << endl << "Ticket's price: (more than 1)"<<endl;
-	//cin >> ticketPrice;
-	//while (ticketPrice <= 1) {
-	//	cout << endl << "Invalid ticket price! " << endl << "Please enter again (more than 1)"<<endl;
-	//	cin >> ticketPrice;
-	//}
-
-	//cout << endl << "Ticket's type: (choose between: VIP, LAWN, TRIBUNE, BOXES)" << endl;
-	//string type;
-	//cin >> type;
-	//transform(type.begin(), type.end(), type.begin(), ::toupper);
-	//if (type == "VIP") {
-	//	type = TicketType::VIP;
-
-	//}
-	//if (type == "TRIBUNE") {
-	//	type = TicketType::TRIBUNE;
-	//}
-	//if (type == "LAWN") {
-	//	type = TicketType::LAWN;
-	//}
-	//if (type == "BOXES") {
-	//	type = TicketType::BOXES;
-	//}
-	//while (validatingTicketType(type) == false) {
-	//	cout << endl << "Invalid ticket type! Please try again: (choose between: VIP, LAWN, TRIBUNE, BOXES) " << endl;
-	//	cin >> type;
-	//	transform(type.begin(), type.end(), type.begin(), ::toupper);
-	//	if (type == "VIP") {
-	//		type = TicketType::VIP;
-	//	}
-	//	if (type == "TRIBUNE") {
-	//		type = TicketType::TRIBUNE;
-	//	}
-	//	if (type == "LAWN") {
-	//		type = TicketType::LAWN;
-	//	}
-	//	if (type == "BOXES") {
-	//		type = TicketType::BOXES;
-	//	}
-
-	//}
-	
-
-	//cout << "Please enter the amount of tickets you want to purchase: ";
-	//cin >> noTickets;
-	////might need to use a pointer for events so we have actual prices, names, etc
-	//double totalCost = purchaseTicket(noTickets);
-	//if (totalCost == -1) {
-	//	cout << endl << "This event has been sold out! ";
-	//}
-	//else {
-	//	cout << endl << "Your total comes out to: " << totalCost << endl;
-	//}
-	std::system("PAUSE");
-	//system("CLS");
-}
+//void Menu::Run() {
+//	int option;
+//	do {
+//		DisplayMenu();
+//		cout << endl << "Please select an option: ";
+//		cin >> option;
+//		switch (option) {
+//		case 1:
+//			AddAnEvent();
+//			std::system("PAUSE");
+//			std::system("CLS");
+//			break;
+//
+//		case 2:
+//			AddATicket();
+//			std::system("PAUSE");
+//			std::system("CLS");
+//			break;
+//
+//		case 3:
+//			AddALocation();
+//			std::system("PAUSE");
+//			std::system("CLS");
+//			break;
+//		case 0:
+//			break;
+//		default:
+//			cout << endl << "Please choose a valid option:" <<endl
+//				<< "-------------------" << endl;
+//			cin.ignore();
+//		}
+//
+//	} while (option != 4 && option!=0);
+//}
+//void Menu::AddALocation() {
+//	std::system("CLS");
+//	int noRows = 0;
+//	cout << endl << "Number of rows: (more than 0): ";
+//	cin >> noRows;
+//	while (noRows <= 0) {
+//		cout << endl << "Invalid number of rows! " << endl << "Please enter again (more than 0)" << endl;
+//		cin >> noRows;
+//	}
+//
+//	int noSeatsPerRow[100];
+//	cout << endl << "Number of seats per row: (bigger than 5 smaller than 30)" << endl;
+//	for (int i = 0; i < noRows; i++) {
+//		cout << endl << "Row number: " << i + 1 << ": ";
+//		cin >> noSeatsPerRow[i];
+//		while (noSeatsPerRow[i] < Location::MIN_NO_SEATS_PER_ROW || noSeatsPerRow[i]> Location::MAX_NO_SEATS_PER_ROW) {
+//			cout << endl << "Invalid number of seats per row! " << endl << "Please enter again: (bigger than 5 smaller than 30) " << endl;
+//			cout << "Row number: " << i + 1 << ": ";
+//			cin >> noSeatsPerRow[i];
+//		}
+//	}
+//	int zones = 0;
+//	cout << endl << "Number of zones: (more than 0) "<<endl;
+//	cin >> zones;
+//	while (zones <= 0) {
+//		cout << endl << "Invalid number of zones! " << endl << "Please enter again (more than 0)"<<endl;
+//		cin >> zones;
+//	}
+//	int total = 0;
+//	for (int j = 0; j < noRows; j++) {
+//		total = total + noSeatsPerRow[j];
+//	}
+//	total = total * zones;
+//
+//	int seatNo = 0;
+//	cout << endl << "Seat number: (more than 0 and less than the total number of available seats) " << endl;
+//	cin >> seatNo;
+//	while (validateNoSeats(seatNo) == false || seatNo > total) {
+//		cout << endl << "Invalid seat number" << endl << "Please enter again (more than 0 and less than the total number of available seats)" << endl;
+//		cin >> seatNo;
+//	}
+//	cout << endl << "Location created"<<endl;
+//	std::system("PAUSE");
+//	//system("CLS");
+//}
+//void Menu::DisplayMenu() {
+//	std::system("CLS");
+//	cout << "----Ticketing App----" << endl;
+//	cout << "_____________________" << endl;
+//	cout << "1-> Add an event " << endl;
+//	cout << "2-> Add a ticket " << endl;
+//	cout << "3-> Add a location " << endl;
+//	cout << "--------------------" << endl;
+//	cout << "0-> Exit " << endl;
+//
+//}
+//
+//void Menu::AddAnEvent() {
+//	/*int choice = 1;
+//	int locations = Location::getNumberOfTotalLocations();
+//	while (choice != 0) {
+//		system("CLS");
+//		cout << "----Add An Event----" << endl;
+//		cout << "--------------------------" << endl;
+//		cout << "Locations: " << locations << endl;
+//		for (int i = 0; i < locations; i++)
+//			cout << endl;
+//	}*/
+//	std::system("CLS");
+//	string name ="";
+//	int duration = 0;
+//	/*int day = 0;
+//	string month = "";
+//	int year = 0;
+//	int min = 0;
+//	int hour = 0;*/
+//	cout << "----Add An Event----" << endl;
+//	cout << "--------------------" << endl;
+//	cout << "Event name: (3 or more characters)"<<endl;
+//	cin >> name;
+//	while (name.length() < 3){
+//		cout << endl << "Invalid event name!" << endl << "Please enter again: (3 or more characters) "<<endl;
+//		cin >> name;
+//	} 
+//	string address = "";
+//	cout << "Enter address: (3 or more characters)" << endl;
+//	cin >> address;
+//	while (address.length() < 3) {
+//		cout << endl << "Invalid address name! " << endl << "Please enter again: (3 or more characters) " << endl;
+//		cin >> address;
+//	}
+//	cout << "Runtime (minutes): (bigger than 0)" << endl;
+//	cin >> duration;
+//	while (duration <= 0) {
+//		cout << "Invalid runtime!" << endl << "Please enter again: (bigger than 0) " <<  endl;
+//		cin >> duration;
+//	}
+//	//cout << "Hour: "; cin >> hour;
+//	//cout << "Minutes: "; cin >> min;
+//	string date="";
+//	string time = "";
+//	cout << "Enter date: (dd/mm/yyyy) " << endl;
+//	cin >> date;
+//	while(validateDate(date) == 0) {
+//		cout << endl << "Invalid date! " << endl << "Please enter again: (dd/mm/yyyy)" << endl;
+//		cin >> date;
+//	}
+//	
+//	cout << "Enter time: (hh:mm) "<<endl;
+//	cin >> time;
+//	while (validateTime(time) == 0) {
+//		cout << endl << "Invalid time! " << endl << "Please enter again: (hh:mm)" << endl;
+//		cin >> time;
+//	}
+//	/*cout << "Day: "; cin >> day;
+//	cout << "Month: "; cin >> month;
+//	cout << "Year: "; cin >> year;*/
+//	cout << endl<<"Event created!"<<endl;
+//	std::system("PAUSE");
+//}
+//
+//void Menu::AddATicket() {
+//	std::system("CLS");
+//	//int noTickets = 1;
+//	//if (ticketsForSale(noTickets) == true) {
+//		string name = "";
+//		//int noTickets;
+//		int ticketPrice = 0;
+//		cout << "Please enter your name: (more than 3 characters)" << endl;
+//		cin >> name;
+//		while (name.length() < 3) {
+//			cout << endl << "Invalid name! " << endl << "Please enter again (more than 3 characters)" << endl;
+//			cin >> name;
+//		}
+//
+//		cout << endl << "Ticket's id: ";
+//		int randomId = 10000000 + rand() % 100000000;
+//		cout << randomId << endl;
+//
+//		cout << endl << "Ticket's price: (more than 1)" << endl;
+//		cin >> ticketPrice;
+//		while (ticketPrice <= 1) {
+//			cout << endl << "Invalid ticket price! " << endl << "Please enter again (more than 1)" << endl;
+//			cin >> ticketPrice;
+//		}
+//
+//		cout << endl << "Ticket's type: (choose between: VIP, LAWN, TRIBUNE, BOXES)" << endl;
+//		string type;
+//		cin >> type;
+//		transform(type.begin(), type.end(), type.begin(), ::toupper);
+//	/*	if (type == "VIP") {
+//			type = TicketType::VIP;
+//
+//		}
+//		if (type == "TRIBUNE") {
+//			type = TicketType::TRIBUNE;
+//		}
+//		if (type == "LAWN") {
+//			type = TicketType::LAWN;
+//		}
+//		if (type == "BOXES") {
+//			type = TicketType::BOXES;
+//		}*/
+//		while (validatingTicketType(type) == false) {
+//			cout << endl << "Invalid ticket type! Please try again: (choose between: VIP, LAWN, TRIBUNE, BOXES) " << endl;
+//			cin >> type;
+//			transform(type.begin(), type.end(), type.begin(), ::toupper);
+//			/*if (type == "VIP") {
+//				type = TicketType::VIP;
+//			}
+//			if (type == "TRIBUNE") {
+//				type = TicketType::TRIBUNE;
+//			}
+//			if (type == "LAWN") {
+//				type = TicketType::LAWN;
+//			}
+//			if (type == "BOXES") {
+//				type = TicketType::BOXES;
+//			}*/
+//
+//		}
+//		cout << endl << "Ticket created!"<<endl;
+//	//}
+//	//else
+//	//{
+//	//	cout << endl << "No more available tickets! "<<endl;
+//	//}
+//	
+//	//string name = "";
+//	////int noTickets;
+//	//int ticketPrice = 0;
+//	//cout << "Please enter your name: (more than 3 characters)"<<endl;
+//	//cin >> name;
+//	//while (name.length() < 3) {
+//	//	cout << endl << "Invalid name! " << endl << "Please enter again (more than 3 characters)" << endl;
+//	//	cin >> name;
+//	//}
+//
+//	//cout << endl << "Ticket's id: ";
+//	//int randomId = 10000000 + rand() % 100000000;
+//	//cout << randomId << endl;
+//
+//	//cout << endl << "Ticket's price: (more than 1)"<<endl;
+//	//cin >> ticketPrice;
+//	//while (ticketPrice <= 1) {
+//	//	cout << endl << "Invalid ticket price! " << endl << "Please enter again (more than 1)"<<endl;
+//	//	cin >> ticketPrice;
+//	//}
+//
+//	//cout << endl << "Ticket's type: (choose between: VIP, LAWN, TRIBUNE, BOXES)" << endl;
+//	//string type;
+//	//cin >> type;
+//	//transform(type.begin(), type.end(), type.begin(), ::toupper);
+//	//if (type == "VIP") {
+//	//	type = TicketType::VIP;
+//
+//	//}
+//	//if (type == "TRIBUNE") {
+//	//	type = TicketType::TRIBUNE;
+//	//}
+//	//if (type == "LAWN") {
+//	//	type = TicketType::LAWN;
+//	//}
+//	//if (type == "BOXES") {
+//	//	type = TicketType::BOXES;
+//	//}
+//	//while (validatingTicketType(type) == false) {
+//	//	cout << endl << "Invalid ticket type! Please try again: (choose between: VIP, LAWN, TRIBUNE, BOXES) " << endl;
+//	//	cin >> type;
+//	//	transform(type.begin(), type.end(), type.begin(), ::toupper);
+//	//	if (type == "VIP") {
+//	//		type = TicketType::VIP;
+//	//	}
+//	//	if (type == "TRIBUNE") {
+//	//		type = TicketType::TRIBUNE;
+//	//	}
+//	//	if (type == "LAWN") {
+//	//		type = TicketType::LAWN;
+//	//	}
+//	//	if (type == "BOXES") {
+//	//		type = TicketType::BOXES;
+//	//	}
+//
+//	//}
+//	
+//
+//	//cout << "Please enter the amount of tickets you want to purchase: ";
+//	//cin >> noTickets;
+//	////might need to use a pointer for events so we have actual prices, names, etc
+//	//double totalCost = purchaseTicket(noTickets);
+//	//if (totalCost == -1) {
+//	//	cout << endl << "This event has been sold out! ";
+//	//}
+//	//else {
+//	//	cout << endl << "Your total comes out to: " << totalCost << endl;
+//	//}
+//	std::system("PAUSE");
+//	//system("CLS");
+//}
 
 //Menu::Menu() {
 //	ticketsAvailable = 0;
@@ -344,8 +344,11 @@ void Menu::AddATicket() {
 
 
 int main() {
-	Menu men9;
-	men9.Run();
+	Manage start;
+
+	//Menu men9;
+	//men9.Run();
+
 	//cout << endl << "Event class: " << endl;
 	////Event event1("12 decembrie 2022", "16:30", "Nostalgia");
 	////Event event2("1 decembrie 2022","16:30", "Nostalgia");
