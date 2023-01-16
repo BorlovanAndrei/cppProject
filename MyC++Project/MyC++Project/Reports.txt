@@ -11,3 +11,5 @@ Number of rows: 1
 Row number: 1: 6
 Number of zones: 1
 Seat number: 2
+Event name: Las
+Event name: anda
