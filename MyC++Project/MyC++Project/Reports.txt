@@ -1,0 +1,13 @@
+Event name: andrei
+Event address: andrei
+Duration: 12
+Date: 12/12/1221
+Time: 23:23
+Customer name: andrei
+Ticket id: 10000041
+Ticket price: 12
+Ticket type: VIP
+Number of rows: 1
+Row number: 1: 6
+Number of zones: 1
+Seat number: 2
